@@ -50,6 +50,41 @@ let getCuisine = {
   },
 };
 
+let getSingleCuisine = {
+  method: "GET",
+  path: basePath+"/getSingle",
+  handler: function (request, reply) {
+    let UserData = request.pre.verify || {};
+    return Controller.AdminCuisineController.getSingleCuisine(request.query,UserData).then((response) => {
+      return UniversalFunctions.successResponse(null, response);
+    }).catch((error) => {
+      return UniversalFunctions.sendError(error);
+    });
+  },
+  config: {
+    description:"Get Single Cuisine",
+    tags: ["api", "Admin Cuisine"],
+    pre: [{ method: checkAccessToken, assign: "verify" }],
+    validate: {
+      query: Joi.object({
+        _id:Joi.string().required(),
+        skip : Joi.number().integer().required(),
+        limit : Joi.number().integer().required(),
+      }), 
+      headers: Joi.object({
+        authorization: Joi.string().trim().required(),
+      }).options({ allowUnknown: true }),
+      failAction: UniversalFunctions.failActionFunction,
+    },
+    plugins: {
+      "hapi-swagger": {
+        payloadType: "form",
+        responseMessages: APP_CONSTANTS.swaggerDefaultResponseMessages,
+      },
+    },
+  },
+};
+
 let create = {
   method: "POST",
   path: basePath+"/create",
@@ -92,7 +127,7 @@ let create = {
 
 let editCuisine = {
   method: "POST",
-  path: "/edit",
+  path: basePath+"/edit",
   handler: function (request, reply) {
     let UserData = request.pre.verify || {};
     return Controller.AdminCuisineController.editCuisine(request.payload, UserData).then((response) => {
@@ -125,8 +160,43 @@ let editCuisine = {
   },
 };
 
+let deleteCuisine = {
+  method: "POST",
+  path: basePath+"/delete",
+  handler: function (request, reply) {
+    let UserData = request.pre.verify || {};
+    return Controller.AdminCuisineController.deleteCuisine(request.payload, UserData).then((response) => {
+      return UniversalFunctions.successResponse(null, response);
+    }).catch((error) => {
+      return UniversalFunctions.sendError(error);
+    });
+  },
+  config: {
+    description: "Delete Cuisine",
+    tags: ["api", "Admin Cuisine"],
+    pre: [{ method: checkAccessToken, assign: "verify" }],
+    validate: {
+      payload: Joi.object({
+        _id:Joi.string().required(),
+      }),
+      headers: Joi.object({
+        authorization: Joi.string().trim().required(),
+      }).options({ allowUnknown: true }),
+      failAction: UniversalFunctions.failActionFunction,
+    },
+    plugins: {
+      "hapi-swagger": {
+        payloadType: "form",
+        responseMessages: APP_CONSTANTS.swaggerDefaultResponseMessages,
+      },
+    },
+  },
+};
+
 module.exports = [
   create,
   editCuisine,
   getCuisine,
+  deleteCuisine,
+  getSingleCuisine
 ];

@@ -39,6 +39,20 @@
     }
 }
 
+let getSingleCuisine = async (payloadData,UserData)=> { console.log("getFaq==init");
+  try {
+    let criteria = {"isDeleted" : false,isEnabled:true,_id:payloadData._id }
+    let projection = {createdAt:0,updatedAt:0,__v:0}
+    let options = {lean:true}
+    let queryResult = await  Service.CuisineService.getData(criteria, projection, options);
+    return {
+      cuisineData:queryResult || []
+    };
+  }catch(err){ //console.log("err",err);
+    throw err;
+  }
+}
+
 let create = async (payloadData,UserData) => {
   try {
     let folderName=APP_CONSTANTS.FOLDER_NAME.BANNER_IMAGES;
@@ -84,6 +98,31 @@ let editCuisine = async (payloadData,userData) => {
        throw err;
     }
 }
+
+
+let deleteCuisine = async (payloadData,userData) => {
+  let criteria = {_id: payloadData._id};
+  let projection = {__v: 0};
+  try {
+    let cuisineData = await Service.CuisineService.getData(criteria, projection, {
+      lean: true,
+    });
+    if (cuisineData.length == 0) {
+      throw APP_CONSTANTS.STATUS_MSG.ERROR.INVALID_CUISINE_ID;
+    }
+    let updateCriteria = { _id: cuisineData[0]._id };
+     let dataToSet = {
+        isDeleted: true,
+        updatedAt: new Date(),
+      };
+
+    let finalData = await Service.CuisineService.updateData(updateCriteria,
+      dataToSet,{ new: true });
+    return { cuisineData: finalData };
+  } catch (err) {
+    throw err;
+  }
+}
  
  
 
@@ -94,5 +133,7 @@ let editCuisine = async (payloadData,userData) => {
   create: create,
   getCuisine: getCuisine,
   editCuisine:editCuisine,
+  deleteCuisine:deleteCuisine,
+  getSingleCuisine:getSingleCuisine,
  };
  

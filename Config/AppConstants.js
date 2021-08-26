@@ -451,6 +451,11 @@ let STATUS_MSG = {
             customMessage : 'Invalid banner Id',
             type : 'INVALID_BANNER_ID'
         },
+        INVALID_CUISINE_ID: {
+            statusCode:400,
+            customMessage : 'Invalid cuisine Id',
+            type : 'INVALID_CUISINE_ID'
+        },
         INVALID_SETTING_ID: {
             statusCode:400,
             customMessage : 'Invalid setting Id',
