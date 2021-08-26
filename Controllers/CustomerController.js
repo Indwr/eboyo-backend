@@ -98,7 +98,8 @@ let uploadProfilePic = async (payloadData, UserData) => {
     }
     let folderName=APP_CONSTANTS.FOLDER_NAME.images;
     let contentType   = payloadData.document.hapi.headers['content-type'];
-    let imageFile = await UniversalFunctions.uploadFiles(payloadData.document,"customerPic_",UserData._id,folderName,contentType);
+    // let imageFile = await UniversalFunctions.uploadFiles(payloadData.document,"customerPic_",UserData._id,folderName,contentType);
+    let imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.document,"customerPic_",UserData._id,folderName,contentType);
     let driverProfilePic;
     let dataToSet = {
       profilePicURL: imageFile[0],

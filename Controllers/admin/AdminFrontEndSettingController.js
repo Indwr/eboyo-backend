@@ -58,7 +58,7 @@ let addSetting = async (payloadData,UserData) => {
         }
         let folderName=APP_CONSTANTS.FOLDER_NAME.images;
         let contentType   = payloadData.image.hapi.headers['content-type'];
-        let imageFile = await UniversalFunctions.uploadFiles(payloadData.image,"frontEndImages_",UserData._id,folderName,contentType);
+        let imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.image,"frontEndImages_",UserData._id,folderName,contentType);
         image  = imageFile[0].original
       }
       console.log(image)
@@ -128,7 +128,7 @@ let editSetting = async (payloadData,UserData) => {
       }
       let folderName=APP_CONSTANTS.FOLDER_NAME.images;
       let contentType   = payloadData.image.hapi.headers['content-type'];
-      let imageFile = await UniversalFunctions.uploadFiles(payloadData.image,"frontEndImages_",UserData._id,folderName,contentType);
+      let imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.image,"frontEndImages_",UserData._id,folderName,contentType);
       image  = imageFile[0].original
     }
 

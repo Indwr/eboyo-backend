@@ -309,8 +309,10 @@ let uploadProfilePic = async (payloadData, UserData) => {
     }
     let folderName=APP_CONSTANTS.FOLDER_NAME.images;
     let contentType   = payloadData.document.hapi.headers['content-type'];
-    let imageFile = await UniversalFunctions.uploadFiles(payloadData.document,
-      "driverPic_",UserData._id,folderName,contentType);
+    // let imageFile = await UniversalFunctions.uploadFiles(payloadData.document,
+    //   "driverPic_",UserData._id,folderName,contentType);
+      let imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.document,
+        "driverPic_",UserData._id,folderName,contentType);
     let driverProfilePic;
     let dataToSet = {
       profilePicURL: imageFile[0],
@@ -340,7 +342,7 @@ let uploadDocument = async (payloadData, UserData) => {
     }
     let folderName=APP_CONSTANTS.FOLDER_NAME.Driver_KYC;
     let contentType   = payloadData.document.hapi.headers['content-type'];
-    let imageFile = await UniversalFunctions.uploadFiles(payloadData.document,
+    let imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.document,
       docPreFix,UserData._id,folderName,contentType);
     console.log("imageFile358", imageFile);
     let driverProfilePic,

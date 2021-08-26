@@ -33,7 +33,7 @@ const addMenu = async (payloadData,UserData)=> {
           throw STATUS_MSG.ERROR.IMAGE_SIZE_LIMIT;
         }
         let contentType   = payloadData.menuImage.hapi.headers['content-type'];
-        let imageFile = await UniversalFunctions.uploadFiles(payloadData.menuImage,"menuImage_",UserData._id,folderName,contentType);
+        let imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.menuImage,"menuImage_",UserData._id,folderName,contentType);
         payloadData.menuImage = imageFile[0];
       }
       let criteria = {_id:payloadData.menuId}
@@ -47,7 +47,7 @@ const addMenu = async (payloadData,UserData)=> {
         throw STATUS_MSG.ERROR.IMAGE_SIZE_LIMIT;
       }
       let contentType   = payloadData.menuImage.hapi.headers['content-type'];
-      let imageFile = await UniversalFunctions.uploadFiles(payloadData.menuImage,"menuImage_",UserData._id,folderName,contentType);
+      let imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.menuImage,"menuImage_",UserData._id,folderName,contentType);
       payloadData.menuImage = imageFile[0];
       let menuData  = await Service.RestaurantMenuService.InsertData(payloadData);
       return {menuData}
@@ -198,7 +198,7 @@ const addDisheImages = async (payloadData,UserData)=> {
         throw STATUS_MSG.ERROR.IMAGE_SIZE_LIMIT;
       }
       let contentType   = payloadData.itemImage.hapi.headers['content-type'];
-      imageFile = await UniversalFunctions.uploadFiles(payloadData.itemImage,"itemImage_",UserData._id,folderName,contentType);
+      imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.itemImage,"itemImage_",UserData._id,folderName,contentType);
     }
     let criteria={_id:payloadData.dishId};
     let dataToSet ={$addToSet:{image:imageFile}} 

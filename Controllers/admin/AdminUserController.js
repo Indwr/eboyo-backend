@@ -346,7 +346,7 @@ let createCategory = async (payloadData,UserData)=> { console.log("createCategor
       throw STATUS_MSG.ERROR.IMAGE_SIZE_LIMIT;
     }
     let contentType   = payloadData.document.hapi.headers['content-type'];
-    let imageFile = await UniversalFunctions.uploadFiles(payloadData.document,"catImage_",Date.now(),folderName,contentType);
+    let imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.document,"catImage_",Date.now(),folderName,contentType);
     let categoryData;
     let data ={
       categoryName:payloadData.categoryName,

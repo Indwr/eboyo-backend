@@ -29,7 +29,7 @@ const addMenu = async (payloadData,UserData)=> {
           throw STATUS_MSG.ERROR.IMAGE_SIZE_LIMIT;
         }
         let contentType   = payloadData.menuImage.hapi.headers['content-type'];
-        let imageFile = await UniversalFunctions.uploadFiles(payloadData.menuImage,"menuImage_",UserData._id,folderName,contentType);
+        let imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.menuImage,"menuImage_",UserData._id,folderName,contentType);
         payloadData.menuImage = imageFile[0];
       }
       let criteria = {_id:payloadData.menuId}
@@ -43,7 +43,7 @@ const addMenu = async (payloadData,UserData)=> {
         throw STATUS_MSG.ERROR.IMAGE_SIZE_LIMIT;
       }
       let contentType   = payloadData.menuImage.hapi.headers['content-type'];
-      let imageFile = await UniversalFunctions.uploadFiles(payloadData.menuImage,"menuImage_",UserData._id,folderName,contentType);
+      let imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.menuImage,"menuImage_",UserData._id,folderName,contentType);
       payloadData.menuImage = imageFile[0];
       let menuData  = await Service.AdminMenuService.InsertData(payloadData);
       return {menuData}

@@ -33,7 +33,7 @@
     payloadData.document = payloadData.logo;
     let contentType   = payloadData.document.hapi.headers['content-type'];
     let queryResult = await Promise.all([
-      UniversalFunctions.uploadFiles(payloadData.document,"restaurantImage_",Date.now(),folderName,contentType),
+      UniversalFunctions.uploadFilesWithCloudinary(payloadData.document,"restaurantImage_",Date.now(),folderName,contentType),
       Service.CityService.getData({_id:payloadData.cityId},{},{}),
       Service.CategoryService.getData({_id:{$in:payloadData.category}},{_id:1},{}),      
     ]);    
@@ -270,7 +270,7 @@ let updatelogo = async (payloadData, UserData) => {
     payloadData.document = payloadData.logo;
     let contentType   = payloadData.document.hapi.headers['content-type'];
     let queryResult = await Promise.all([
-      UniversalFunctions.uploadFiles(payloadData.document,"restaurantImage_",Date.now(),folderName,contentType),
+      UniversalFunctions.uploadFilesWithCloudinary(payloadData.document,"restaurantImage_",Date.now(),folderName,contentType),
     ]);    
     let imageFile = queryResult[0];
     
