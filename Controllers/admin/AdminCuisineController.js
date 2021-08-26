@@ -46,7 +46,7 @@ let getSingleCuisine = async (payloadData,UserData)=> { console.log("getFaq==ini
     let options = {lean:true}
     let queryResult = await  Service.CuisineService.getData(criteria, projection, options);
     return {
-      cuisineData:queryResult || []
+      cuisineData:queryResult[0] || []
     };
   }catch(err){ //console.log("err",err);
     throw err;
