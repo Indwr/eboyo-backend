@@ -632,17 +632,26 @@ let getRestaurantDisheDetail = async (payloadData,UserData)=> {
 
 let allBanner = async (payloadData,UserData)=> { console.log("getFaq==init");
    try {
-    let criteria = {"isDeleted" : false,type:payloadData.type}
+     let promoCodeData = [];
+     let criteria = {"isDeleted" : false,type:payloadData.type}
      let projection = {createdAt:0,updatedAt:0,__v:0,bannerAuoIncrement:0}
-    let options = {skip:payloadData.skip,limit:payloadData.limit,lean:true}
+     let projectionForPromoCode = {createdAt:0,updatedAt:0,__v:0}
+     let options = {skip:payloadData.skip,limit:payloadData.limit,lean:true}
+
+  
     let queryResult= await Promise.all([
       Service.BannerService.countData(criteria),
       Service.BannerService.getData(criteria, projection, options),
+      Service.PromoCodeService.getData({},projectionForPromoCode,{lean:true}),
     ]);
     let totalCount = queryResult[0] || [];
+    if(payloadData.type == APP_CONSTANTS.USER_ROLES.CUSTOMER){
+       promoCodeData = queryResult[2];
+    }
     return {
       totalCount:totalCount,
-      bannerData:queryResult[1] || []
+      bannerData:queryResult[1] || [],
+      promoCodeData: promoCodeData
     };
   }catch(err){ //console.log("err",err);
     throw err;
