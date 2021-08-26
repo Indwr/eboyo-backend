@@ -64,6 +64,7 @@ let getRestaurant = async (payloadData,UserData)=> {
         let queryResult= await Promise.all([
           Service.RestaurantService.getData(criteria3, projection, {}),
           Service.RestaurantService.getData(criteria3, projection, options),
+          Service.RestaurantService.getData(criteria3, projection, options),
         ]);
         let finalData=[]
         for(let element of queryResult[1]){ //console.log("element",element);
@@ -87,7 +88,8 @@ let getRestaurant = async (payloadData,UserData)=> {
         let totalCount = queryResult[0] || [];
         return {
           totalCount:totalCount.length,
-          restaurantData:finalData || []
+          restaurantData:finalData || [],
+          topPicks: queryResult[2] || []
         };
       }
     } 
@@ -636,6 +638,7 @@ let allBanner = async (payloadData,UserData)=> { console.log("getFaq==init");
      let criteria = {"isDeleted" : false,type:payloadData.type}
      let projection = {createdAt:0,updatedAt:0,__v:0,bannerAuoIncrement:0}
      let projectionForPromoCode = {createdAt:0,updatedAt:0,__v:0}
+     let projectionForCuisine = {createdAt:0,updatedAt:0,__v:0}
      let options = {skip:payloadData.skip,limit:payloadData.limit,lean:true}
 
   
@@ -643,6 +646,7 @@ let allBanner = async (payloadData,UserData)=> { console.log("getFaq==init");
       Service.BannerService.countData(criteria),
       Service.BannerService.getData(criteria, projection, options),
       Service.PromoCodeService.getData({},projectionForPromoCode,{lean:true}),
+      Service.CuisineService.getData({isEnabled:true,isDeleted:false},projectionForCuisine,{lean:true}),
     ]);
     let totalCount = queryResult[0] || [];
     if(payloadData.type == APP_CONSTANTS.USER_ROLES.CUSTOMER){
@@ -651,7 +655,8 @@ let allBanner = async (payloadData,UserData)=> { console.log("getFaq==init");
     return {
       totalCount:totalCount,
       bannerData:queryResult[1] || [],
-      promoCodeData: promoCodeData
+      promoCodeData: promoCodeData,
+      cuisine : queryResult[3] || []
     };
   }catch(err){ //console.log("err",err);
     throw err;
