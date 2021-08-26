@@ -7,6 +7,10 @@ const APP_CONSTANTS   =  Config.APP_CONSTANTS;
 
 const CuisineItem = new Schema({
   cuisineName     :   {type: String,trim: true,required: true},
+  image: {
+		original: {type: String, default: null},
+		thumbnail: {type: String, default: null}
+	},
   isDeleted    :  {type: Boolean, default: false},
   isEnabled    :  {type: Boolean, default: true},
   createdAt    :  {type: Date, default: Date.now,required: true,index:true},

@@ -64,10 +64,17 @@ let create = {
   config: {
     description:"Add new cuisine",
     tags: ["api", "Admin Cuisine"],
+    payload: {
+      maxBytes: 1000 * 1000 * 20, // 20 Mb
+      output: 'stream',
+      parse: true,
+      multipart:true,
+    },
     pre: [{ method: checkAccessToken, assign: "verify" }],
     validate: {
       payload: Joi.object({
         cuisineName:Joi.string().required().trim(),
+        image: Joi.any().meta({swaggerType: 'file'}).required().description('cuisine image'),
       }),
       headers: Joi.object({
         authorization: Joi.string().trim().required(),

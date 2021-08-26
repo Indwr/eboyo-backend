@@ -41,6 +41,17 @@
 
 let create = async (payloadData,UserData) => {
   try {
+    let folderName=APP_CONSTANTS.FOLDER_NAME.BANNER_IMAGES;
+    if (typeof payloadData.image=='undefined'){
+      throw STATUS_MSG.ERROR.INVALID_FILE;
+    }
+    if (payloadData.image["_data"].length > DOCUMENT_FILE_SIZE.IMAGE_SIZE) {
+      throw STATUS_MSG.ERROR.IMAGE_SIZE_LIMIT;
+    }
+    let contentType   = payloadData.image.hapi.headers['content-type'];
+    // let imageFile = await UniversalFunctions.uploadFiles(payloadData.image,"bannerImage_",Date.now(),folderName,contentType);
+    let imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.image,"cuisineImage_",Date.now(),folderName,contentType);
+    payloadData.image = imageFile[0]
     let createCuisine = await Service.CuisineService.InsertData(payloadData);
     return { cuisine: createCuisine };
   } catch (err) {
