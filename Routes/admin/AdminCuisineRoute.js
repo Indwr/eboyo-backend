@@ -68,8 +68,6 @@ let getSingleCuisine = {
     validate: {
       query: Joi.object({
         _id:Joi.string().required(),
-        skip : Joi.number().integer().required(),
-        limit : Joi.number().integer().required(),
       }), 
       headers: Joi.object({
         authorization: Joi.string().trim().required(),
