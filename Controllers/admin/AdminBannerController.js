@@ -140,7 +140,37 @@ let deleteBanner = async (payloadData,userData) => {
  
 
  
- 
+let updateImage = async (payloadData, UserData) => {
+  try {
+    let updatePromoCodeImage = {};
+    let isValid = Mongoose.Types.ObjectId.isValid(payloadData._id); //true
+  if(isValid === false){
+   throw STATUS_MSG.ERROR.INVALID_BANNER_ID;
+  }
+    if (typeof payloadData.document == "undefined") {
+      throw STATUS_MSG.ERROR.INVALID_FILE;
+    }
+    if (payloadData.document["_data"].length > DOCUMENT_FILE_SIZE.IMAGE_SIZE) {
+      throw STATUS_MSG.ERROR.IMAGE_SIZE_LIMIT;
+    }
+    let criteria = {_id:payloadData._id}
+    let bannerData = await Service.BannerService.getData(criteria, {}, {lean:true});
+   if(bannerData){
+    let folderName=APP_CONSTANTS.FOLDER_NAME.document;
+    let contentType   = payloadData.document.hapi.headers['content-type'];
+    let imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.document,"bannerImg_",UserData._id,folderName,contentType);
+    payloadData.image = imageFile[0];
+     updateBannerImage = await Service.BannerService.updateData(criteria,payloadData,{lean:true,new:true});
+   }else{
+    throw STATUS_MSG.ERROR.BANNER_NOT_FOUND; 
+   }
+  
+    delete updateBannerImage.__v;
+    return { bannerData: updateBannerImage };
+  } catch (err) {
+    throw err;
+  }
+}; 
 
  
  
@@ -150,5 +180,6 @@ let deleteBanner = async (payloadData,userData) => {
   getBanner:getBanner,
   editBanner: editBanner,
   deleteBanner: deleteBanner,
+  updateImage:updateImage,
  };
  

@@ -190,7 +190,7 @@ let updateImage = {
     });
   },
   config: {
-    description: "Create New Promo Code",
+    description: "Update Promo Code Image",
     tags: ["api", "Admin PromoCode"],
     payload: {
       maxBytes: 1000 * 1000 * 20, // 20 Mb
