@@ -170,7 +170,7 @@ const addDishes = async (payloadData,UserData)=> {
           throw STATUS_MSG.ERROR.IMAGE_SIZE_LIMIT;
         }
         payloadData.itemImage = payloadData.itemImage 
-        let imageFile = await UniversalFunctions.uploadMultipleFiles(payloadData.itemImage,"itemImage_",UserData._id,folderName);
+        let imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.itemImage,"itemImage_",UserData._id,folderName);
         payloadData.image = imageFile[0];   
       }
       let dishesData  = await Service.DishesService.InsertData(payloadData);
