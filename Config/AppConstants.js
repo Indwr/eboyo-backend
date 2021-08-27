@@ -295,6 +295,11 @@ let STATUS_MSG = {
             customMessage : 'Invalid notification Id',
             type : 'INVALID_NOTIFICATION_ID'
         },
+        INVALID_PROMOCODE_ID: {
+            statusCode:400,
+            customMessage : 'Invalid promo code Id',
+            type : 'INVALID_PROMOCODE_ID'
+        },
         INVALID_PAYMENT_GETEWAY_ID: {
             statusCode:400,
             customMessage : 'Invalid Payment Geteway Id',

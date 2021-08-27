@@ -178,9 +178,50 @@ let edit = {
   },
 };
 
+let updateImage = {
+  method: "PUT",
+  path: basePath+"/updateImage",
+  handler: function (request, reply) {
+    let UserData = request.pre.verify || {};
+    return Controller.AdminPromoCodeController.updateImage(request.payload,UserData).then((response) => {
+      return UniversalFunctions.successResponse(null, response);
+    }).catch((error) => {
+      return UniversalFunctions.sendError(error);
+    });
+  },
+  config: {
+    description: "Create New Promo Code",
+    tags: ["api", "Admin PromoCode"],
+    payload: {
+      maxBytes: 1000 * 1000 * 20, // 20 Mb
+      output: "stream",
+      parse: true,
+      multipart: true,
+    },
+    pre: [{ method: checkAccessToken, assign: "verify" }],
+    validate: {
+      payload: Joi.object({
+        _id   : Joi.string().required(),
+        document: Joi.any().meta({ swaggerType: "file" }).required().description("document file"),
+      }),
+      headers: Joi.object({
+        authorization: Joi.string().trim().required(),
+      }).options({ allowUnknown: true }),
+      failAction: UniversalFunctions.failActionFunction,
+    },
+    plugins: {
+      "hapi-swagger": {
+        payloadType: "form",
+        responseMessages: APP_CONSTANTS.swaggerDefaultResponseMessages,
+      },
+    },
+  },
+};
+
 module.exports = [
   create,
   getlist,
   updateStatus,
   edit,
+  updateImage,
 ];

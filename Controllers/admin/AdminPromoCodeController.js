@@ -125,12 +125,44 @@ let edit = async (payloadData, UserData) => {
     throw err;
   }
 }; 
- 
+
+let updateImage = async (payloadData, UserData) => {
+  try {
+    let updatePromoCodeImage = {};
+    let isValid = Mongoose.Types.ObjectId.isValid(payloadData._id); //true
+  if(isValid === false){
+   throw STATUS_MSG.ERROR.INVALID_PROMOCODE_ID;
+  }
+    if (typeof payloadData.document == "undefined") {
+      throw STATUS_MSG.ERROR.INVALID_FILE;
+    }
+    if (payloadData.document["_data"].length > DOCUMENT_FILE_SIZE.IMAGE_SIZE) {
+      throw STATUS_MSG.ERROR.IMAGE_SIZE_LIMIT;
+    }
+    let criteria = {_id:payloadData._id}
+    let promoCodeData = await Service.PromoCodeService.getData(criteria, {}, {lean:true});
+   if(promoCodeData){
+    let folderName=APP_CONSTANTS.FOLDER_NAME.document;
+    let contentType   = payloadData.document.hapi.headers['content-type'];
+    let imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.document,"promoImg_",UserData._id,folderName,contentType);
+    payloadData.image = imageFile[0];
+     updatePromoCodeImage = await Service.PromoCodeService.updateData(criteria,payloadData,{lean:true,new:true});
+   }else{
+    throw STATUS_MSG.ERROR.INVALID_PROMO_CODE_ID; 
+   }
+  
+    delete updatePromoCodeImage.__v;
+    return { promoCode: updatePromoCodeImage };
+  } catch (err) {
+    throw err;
+  }
+}; 
  
  module.exports = {
   getList : getList,
   create  : create,
   updateStatus:updateStatus,
   edit:edit,
+  updateImage:updateImage,
  };
  
