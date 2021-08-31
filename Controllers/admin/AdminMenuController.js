@@ -23,6 +23,12 @@ const addMenu = async (payloadData,UserData)=> {
   try{
     let folderName=APP_CONSTANTS.FOLDER_NAME.images;
     payloadData.adminId = UserData._id;
+    let criteria2 = {isDeleted:false,menuName:payloadData.menuName};
+    let options2 =  {lean:true};
+    let getMenudata = await Service.AdminMenuService.getData(criteria2,{},options2);
+    if(getMenudata.length > 0){
+      throw STATUS_MSG.ERROR.MENU_ALREADY_EXISTS;
+    }
     if(payloadData.menuId){
       if(typeof payloadData.menuImage!='undefined'){
         if(payloadData.menuImage['_data'].length>DOCUMENT_FILE_SIZE.IMAGE_SIZE){

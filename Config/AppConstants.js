@@ -285,6 +285,11 @@ let STATUS_MSG = {
             customMessage : 'Customer already exists',
             type : 'CUSTOMER_ALREADY_EXISTS'
         },
+        MENU_ALREADY_EXISTS: {
+            statusCode:400,
+            customMessage : 'Menu already exists',
+            type : 'MENU_ALREADY_EXISTS'
+        },
         INVALID_CUSTOMER_ID: {
             statusCode:400,
             customMessage : 'Invalid customer Id',
