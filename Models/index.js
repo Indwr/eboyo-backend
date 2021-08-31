@@ -36,4 +36,5 @@ module.exports = {
   AuthenticationTable   :   require('./Authentication'),
   FrontEndSettingsTable   :   require('./FrontEndSettingsSchema'),
   LogsTable               :    require('./LogSchema'),
+  FavouriteTable         :   require('./FavouriteSchema'),
 };

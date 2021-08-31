@@ -751,6 +751,39 @@ let getPromoCode = {
   }
 }
 
+let addToFavourite = {
+  method: 'POST',
+  path: '/api/v1/customer/addToFavourite',
+  handler: function (request, reply) {  
+    let UserData = request.pre.verify || {}; 
+    return Controller.CustomerController.addToFavourite(request.payload,UserData).then(response =>{
+        return  UniversalFunctions.successResponse(null, response)  ;   
+    }).catch(error => {    
+        return UniversalFunctions.sendError(error) ;  
+    });
+  },
+  config: {
+    description: 'Add To Favourite',
+      tags: ['api', 'Customer'],
+      pre: [{ method: checkAccessToken, assign: 'verify' }],
+      validate: {
+        payload: Joi.object({
+          restaurantId   : Joi.string().required().min(2).trim(),
+          isFavourite:Joi.boolean().required(),
+          type:Joi.string().valid(APP_CONSTANTS.USER_FAVOURITE_TYPES.RESTAURANT).required(),
+        }),
+      headers: Joi.object({'authorization': Joi.string().trim().required()}).options({allowUnknown: true}),
+      failAction: UniversalFunctions.failActionFunction
+    },
+    plugins: {
+      'hapi-swagger': {
+        payloadType : 'form',
+        responseMessages: APP_CONSTANTS.swaggerDefaultResponseMessages
+      }
+    }
+  }
+}
+
 module.exports = [
   customerRegister,
   changePassword,
@@ -772,6 +805,7 @@ module.exports = [
   submitRating,
   getNotificationList,
   getPromoCode,
+  addToFavourite,
   //forgotPassword,
   //resetPassword,
 ]

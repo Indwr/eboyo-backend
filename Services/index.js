@@ -36,4 +36,5 @@ module.exports = {
     AuthenticationService          :    require('./AuthenticationService'),
     FrontEndSettingService          :    require('./FrontEndSettingsService'),
     LogService          :    require('./LogService'),
+    FavouriteService               : require('./FavouriteService'),
 };

@@ -560,6 +560,29 @@ let getPromoCode = async (payloadData,UserData)=> {
   }
 };
 
+let addToFavourite = async (payloadData,UserData)=>{ //console.log("UserData",UserData); 
+  try{    
+    let dataToSet = {}
+    let getFavouriteData; 
+    let userId = UserData._id;
+    let criteria = {restaurantId:payloadData.restaurantId,userId:userId,type:payloadData.type};
+    let getFavData = await Service.FavouriteService.getData(criteria,{},{new:true});
+    if(getFavData.length > 0){
+
+      dataToSet.isFavourite = payloadData.isFavourite;
+      getFavouriteData  = await Service.FavouriteService.updateData(criteria,dataToSet,{new:true});
+    }else{
+      dataToSet.isFavourite = payloadData.isFavourite;
+      dataToSet.userId = userId;
+      dataToSet.type = payloadData.type;
+      dataToSet.restaurantId = payloadData.restaurantId;
+      getFavouriteData = await Service.FavouriteService.InsertData(dataToSet);
+    }
+    return getFavouriteData;
+  }catch(err){
+    throw err;
+  }
+};
 
 module.exports ={
   registration   : registration,
@@ -579,5 +602,6 @@ module.exports ={
   deleteAddress:deleteAddress,
   submitRating:submitRating,
   getNotificationList:getNotificationList,
-  getPromoCode:getPromoCode
+  getPromoCode:getPromoCode,
+  addToFavourite:addToFavourite,
 }
