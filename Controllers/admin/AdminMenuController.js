@@ -98,8 +98,41 @@ let deleteMenu = async (payload,UserData)=>{
   }
 };
 
+let updateImage = async (payloadData, UserData) => {
+  try {
+    let updateMenuImage = {};
+    let isValid = Mongoose.Types.ObjectId.isValid(payloadData._id); //true
+  if(isValid === false){
+   throw STATUS_MSG.ERROR.INVALID_MENU_ID;
+  }
+    if (typeof payloadData.document == "undefined") {
+      throw STATUS_MSG.ERROR.INVALID_FILE;
+    }
+    if (payloadData.document["_data"].length > DOCUMENT_FILE_SIZE.IMAGE_SIZE) {
+      throw STATUS_MSG.ERROR.IMAGE_SIZE_LIMIT;
+    }
+    let criteria = {_id:payloadData._id}
+    let menuData = await Service.AdminMenuService.getData(criteria, {}, {lean:true});
+   if(menuData){
+    let folderName=APP_CONSTANTS.FOLDER_NAME.document;
+    let contentType   = payloadData.document.hapi.headers['content-type'];
+    let imageFile = await UniversalFunctions.uploadFilesWithCloudinary(payloadData.document,"menuImg_",UserData._id,folderName,contentType);
+    payloadData.menuImage = imageFile[0];
+    updateMenuImage = await Service.AdminMenuService.updateData(criteria,payloadData,{lean:true,new:true});
+   }else{
+    throw STATUS_MSG.ERROR.MENU_NOT_FOUND; 
+   }
+  
+    delete updateMenuImage.__v;
+    return { menuData: updateMenuImage };
+  } catch (err) {
+    throw err;
+  }
+}; 
+
 module.exports = {
   addMenu:addMenu,
   getMenuList:getMenuList,
-  deleteMenu:deleteMenu
+  deleteMenu:deleteMenu,
+  updateImage:updateImage
 }

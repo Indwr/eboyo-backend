@@ -310,6 +310,11 @@ let STATUS_MSG = {
             customMessage : 'Invalid banner code Id',
             type : 'INVALID_BANNER_ID'
         },
+        INVALID_MENU_ID: {
+            statusCode:400,
+            customMessage : 'Invalid Menu Id',
+            type : 'INVALID_MENU_ID'
+        },
         INVALID_PAYMENT_GETEWAY_ID: {
             statusCode:400,
             customMessage : 'Invalid Payment Geteway Id',
@@ -344,6 +349,11 @@ let STATUS_MSG = {
             statusCode:400,
             customMessage : 'Banner not found',
             type : 'BANNER_NOT_FOUND'
+        },
+        MENU_NOT_FOUND: {
+            statusCode:400,
+            customMessage : 'Menu not found',
+            type : 'MENU_NOT_FOUND'
         },
         PAYMENT_ID_NOT_FOUND: {
             statusCode:400,
