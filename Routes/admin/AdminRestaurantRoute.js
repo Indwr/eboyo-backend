@@ -260,10 +260,48 @@ let updatelogo = {
   },
 };
 
+let updateStatus = {
+  method: "POST",
+  path: basePath+"/updateStatus",
+  handler: function (request, reply) {
+    let UserData = request.pre.verify || {};
+    return Controller.AdminRestaurantController.updateStatus(request.payload,UserData
+    ).then((response) => {
+        return UniversalFunctions.successResponse(null, response);
+    }).catch((error) => {
+        return UniversalFunctions.sendError(error);
+    });
+  },
+  config: {
+    description: "Update restaurant Status Is Online",
+    tags: ["api", "Admin Restaurant"],
+    pre: [{ method: checkAccessToken, assign: "verify" }],
+    validate: {
+      payload: Joi.object({
+        userType:Joi.string().valid(APP_CONSTANTS.USER_ROLES.RESTAURANT).required(),
+        _id: Joi.string().trim().required(),
+        status: Joi.boolean().required(),
+      }),
+      headers: Joi.object({
+        authorization: Joi.string().trim().required(),
+      }).options({ allowUnknown: true }),
+      failAction: UniversalFunctions.failActionFunction,
+    },
+    plugins: {
+      "hapi-swagger": {
+        payloadType: "form",
+        responseMessages: APP_CONSTANTS.swaggerDefaultResponseMessages,
+      },
+    },
+  },
+};
+
+
 module.exports = [
   createRestaurant,
   getAllRestaurant,
   restaurantDetail,
   editRestaurant,
   updatelogo,
+  updateStatus,
 ];
