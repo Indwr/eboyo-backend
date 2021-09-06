@@ -126,7 +126,7 @@ let getDashboardData = {
   path: basePath+"/getDashboardData",
   handler: function (request, reply) {
     let UserData = request.pre.verify || {};
-    return Controller.AdminUserController.getDashboardData(request.payload,UserData).then((response) => {
+    return Controller.AdminUserController.getDashboardData(request.query,UserData).then((response) => {
       return UniversalFunctions.successResponse(null, response);
     }).catch((error) => {
       return UniversalFunctions.sendError(error);
@@ -137,7 +137,10 @@ let getDashboardData = {
     tags: ["api", "Admin User"],
     pre: [{ method: checkAccessToken, assign: "verify" }],
     validate: {
-      query: Joi.object({}),
+      query: Joi.object({
+        startDate:Joi.string().required(),
+        endDate:Joi.string().required(),
+      }),
       headers: Joi.object({
         authorization: Joi.string().trim().required(),
       }).options({ allowUnknown: true }),

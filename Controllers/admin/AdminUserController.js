@@ -128,18 +128,45 @@ let logout = async (payloadData,UserData) => {
 
 let getDashboardData = async(payloadData, UserData) => {
   try {
+    let criteria = {};
+    payloadData.startDate = Moment(payloadData.startDate).format("YYYY-MM-DD"); 
+    payloadData.startDate =  payloadData.startDate.toString();
+    payloadData.endDate =   Moment(payloadData.endDate).add(1, 'days'); 
+    payloadData.endDate = new Date(payloadData.endDate); 
+    // criteria = { $gte : payloadData.startDate, $lt : payloadData.endDate, }
+console.log(criteria);
+    
+    // let match ={
+    //   $match: {$gte:'2021-09-05',$lt:'2021-09-07'}
+    // }
+    let match = { "$match": {
+      createdAt: {$gte: new Date(payloadData.startDate), $lt: new Date(payloadData.endDate)}
+  }};
+  let match2 = { "$match": {}};
+    console.log(match)
+    let groupBy ={
+      $group:  {
+        _id :  null,
+        totalAmount: { $sum: "$totalPrice" },
+      }
+    }
     let queryResult = await Promise.all([
       Service.CustomerService.countData({}),
       Service.DriverService.countData({}),
       Service.RestaurantService.countData({}),
       Service.OrderService.countData({}),
+      Service.OrderService.aggregateQuery([match,groupBy,{$sort:{"_id":1}}]),
+      Service.OrderService.aggregateQuery([match2,groupBy,{$sort:{"_id":1}}])
     ])
+    
     let totalCustomer = queryResult[0];
     let totalDriver = queryResult[1];
     let totalRestaurant = queryResult[2];
     let totalOrder = queryResult[3];
+    let todaySales = (queryResult[4].length > 0) ? queryResult[4][0].totalAmount : 0;
+    let totalSales = (queryResult[5].length > 0) ? queryResult[5][0].totalAmount : 0;
     return {
-      totalCustomer,totalDriver,totalRestaurant,totalOrder,
+      totalCustomer,totalDriver,totalRestaurant,totalOrder,todaySales,totalSales,
       top5Restaurant:[],
       top5Customer:[],
       top5Driver:[],

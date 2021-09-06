@@ -192,7 +192,7 @@ let restaurantDetail = async (payloadData, UserData) => {
       Service.RestaurantAreaService.getData(locationC,{deliveryServiceArea:0,restaurant:0},{}),
       Service.BankDetailService.getData({userId:payloadData.restaurantId , "userType" : "Restaurant"},{},{lean:true}),
     ])
-    let locationData= result[1]
+    let locationData= result[1][0]
     restaurantData = result[0]
     bankDetails = result[2]
     return {

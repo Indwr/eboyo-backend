@@ -10,8 +10,8 @@ let APP_DETAILS = {
     APP_NAME:'Eboyo',
     LOGO : 'https://eboyofood.s3.us-east-2.amazonaws.com/eboyologo.png',
     PDF_FILE_PATH : './pdfFile/',
-    BASE_URL: 'http://inder:3002/',
-    FRONT_END_BASE_URL_FOR_RESET_PASSWORD: 'http://localhost:3000/#/reset_password/',
+    BASE_URL: 'http://localhost:3002/',
+    FRONT_END_BASE_URL_FOR_RESET_PASSWORD: 'https://admin.eboyo.co.in/#/reset_password',
 }
 
 let EMAIL_TEMPLATES = {
