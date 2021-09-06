@@ -4,6 +4,7 @@ const Config = require('../Config');
 const Schema = Mongoose.Schema;
 
 const RestaurantServiceArea = new Schema({
+    cityId      : {type: Schema.ObjectId, ref: 'cityTable', required: true},
     locationName: {type: String,index:true},
     deliveryServiceArea: {
         'type': {type: String, enum: "Polygon", default: "Polygon"},//LineString //Polygon

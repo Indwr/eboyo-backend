@@ -31,6 +31,7 @@ let addDeliveryServiceArea = async (payloadData, UserData)=>{
   try{
     let dataToSet = {
       locationName: payloadData.locationName,
+      cityId : payloadData.cityId,
       deliveryServiceArea: {
         type: "Polygon",//LineString //Polygon
         coordinates: [payloadData.coordinates]

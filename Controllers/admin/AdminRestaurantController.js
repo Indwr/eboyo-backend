@@ -195,10 +195,11 @@ let restaurantDetail = async (payloadData, UserData) => {
     let locationData= result[1][0]
     restaurantData = result[0]
     bankDetails = result[2]
-    return {
-      locationData,
-      restaurantData: restaurantData[0] || {},
-      bankDetails: bankDetails[0] || {},
+      return { retaurant : {
+        locationData,
+        restaurantData: restaurantData[0] || {},
+        bankDetails: bankDetails[0] || {},
+      }
     };
   } catch (err) {
     throw err;

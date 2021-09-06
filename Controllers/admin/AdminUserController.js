@@ -156,7 +156,12 @@ console.log(criteria);
       Service.RestaurantService.countData({}),
       Service.OrderService.countData({}),
       Service.OrderService.aggregateQuery([match,groupBy,{$sort:{"_id":1}}]),
-      Service.OrderService.aggregateQuery([match2,groupBy,{$sort:{"_id":1}}])
+      Service.OrderService.aggregateQuery([match2,groupBy,{$sort:{"_id":1}}]),
+      Service.CustomerService.countData({createdAt: {$gte: new Date(payloadData.startDate), $lt: new Date(payloadData.endDate)}}),
+      Service.OrderService.countData({status:APP_CONSTANTS.ORDER_STATUS.COMPLETED}),
+      Service.OrderService.countData({status:APP_CONSTANTS.ORDER_STATUS.PENDING}),
+      Service.OrderService.countData({status:APP_CONSTANTS.ORDER_STATUS.PICKED_BY_RIDER}),
+      Service.OrderService.countData({status: { $in: [APP_CONSTANTS.ORDER_STATUS.CANCELLED_BY_RESTAURANT, APP_CONSTANTS.ORDER_STATUS.CANCELLED_BY_CUSTOMER,APP_CONSTANTS.ORDER_STATUS.CANCELLED_BY_RIDER ]}}),
     ])
     
     let totalCustomer = queryResult[0];
@@ -165,8 +170,12 @@ console.log(criteria);
     let totalOrder = queryResult[3];
     let todaySales = (queryResult[4].length > 0) ? queryResult[4][0].totalAmount : 0;
     let totalSales = (queryResult[5].length > 0) ? queryResult[5][0].totalAmount : 0;
+    let todayCustomers = queryResult[6];
+    let totalCompletedOrders = queryResult[7];
+    let totalPendingOrders = queryResult[8];
+    let totalCanceledOrders = queryResult[9];
     return {
-      totalCustomer,totalDriver,totalRestaurant,totalOrder,todaySales,totalSales,
+      todayCustomers,totalCustomer,totalDriver,totalRestaurant,totalOrder,todaySales,totalSales,totalCompletedOrders,totalPendingOrders,totalCanceledOrders,
       top5Restaurant:[],
       top5Customer:[],
       top5Driver:[],

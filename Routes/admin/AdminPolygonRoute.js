@@ -33,7 +33,8 @@ let addDeliveryServiceArea = {
       headers: UniversalFunctions.authorizationHeaderObj,
       payload: Joi.object({
         locationName: Joi.string().lowercase().required(),
-        coordinates: Joi.array().items(Joi.array().items(Joi.number().required()).required()).min(4).required()
+        coordinates: Joi.array().items(Joi.array().items(Joi.number().required()).required()).min(4).required(),
+        cityId : Joi.string().required(),
       }),
       headers: Joi.object({'authorization': Joi.string().trim().required()}).options({allowUnknown: true}),
       failAction: UniversalFunctions.failActionFunction
