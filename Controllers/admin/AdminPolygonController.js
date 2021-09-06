@@ -45,6 +45,33 @@ let addDeliveryServiceArea = async (payloadData, UserData)=>{
   }
 };
 
+let editDeliveryServiceArea = async (payloadData, UserData)=>{ 
+  let servingLocation;
+  try{
+    let isValid = Mongoose.Types.ObjectId.isValid(payloadData._id); //true
+    if(isValid === false){
+     throw STATUS_MSG.ERROR.INVALID_RESTAURANT_SERVICE_AREA_ID;
+    }
+    let criteria = {_id:payloadData._id}
+    let restaurantServiceAreaData  = await Service.RestaurantAreaService.getData(criteria,{},{lean:true});
+    if (restaurantServiceAreaData.length == 0) {
+      throw APP_CONSTANTS.STATUS_MSG.ERROR.INVALID_RESTAURANT_SERVICE_AREA_ID;
+    }
+    let dataToSet = {
+      locationName: payloadData.locationName,
+      cityId : payloadData.cityId,
+      deliveryServiceArea: {
+        type: "Polygon",//LineString //Polygon
+        coordinates: [payloadData.coordinates]
+      }
+    }; 
+    servingLocation  = await Service.RestaurantAreaService.updateData(criteria,dataToSet,{lean:true});
+    return {servingLocation};
+  }catch(err){
+    throw err;
+  }
+};
+
 let mapRestaurant = async (payloadData, UserData)=>{   
   try{
     let result= await Promise.all([ 
@@ -211,5 +238,6 @@ module.exports = {
   getLocationlist:getLocationlist,
   removedRestaurant:removedRestaurant,
   getLocationRestaurant:getLocationRestaurant,
-  getLocationDetails:getLocationDetails
+  getLocationDetails:getLocationDetails,
+  editDeliveryServiceArea:editDeliveryServiceArea,
 }

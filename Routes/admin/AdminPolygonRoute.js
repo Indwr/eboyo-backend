@@ -47,6 +47,40 @@ let addDeliveryServiceArea = {
   }
 }
 
+let editDeliveryServiceArea = {
+  method: "PUT",
+  path: basePath+"/edit",
+  handler: function (request, reply) {
+    let UserData = request.pre.verify || {};
+    return Controller.AdminPolygonController.editDeliveryServiceArea(request.payload,UserData).then((response) => {
+      return UniversalFunctions.successResponse(null, response);
+    }).catch((error) => {
+      return UniversalFunctions.sendError(error);
+    });
+  },
+  config: {
+    description: "Edit Delivery ServiceArea || geofencing",
+    tags: ["api", "Admin Polygon"],
+    pre: [{ method: checkAccessToken, assign: "verify" }],
+    validate: {
+      payload: Joi.object({
+        _id : Joi.string().required(),
+        locationName: Joi.string().lowercase().required(),
+        coordinates: Joi.array().items(Joi.array().items(Joi.number().required()).required()).min(4).required(),
+        cityId : Joi.string().required(),
+      }),
+      headers: Joi.object({
+        authorization: Joi.string().trim().required(),
+      }).options({ allowUnknown: true }),
+      failAction: UniversalFunctions.failActionFunction,
+    },
+    plugins: {
+      "hapi-swagger": {
+        responseMessages: APP_CONSTANTS.swaggerDefaultResponseMessages,
+      },
+    },
+  },
+};
 
 let mapRestaurant= {
   method: 'POST',
@@ -219,4 +253,5 @@ module.exports = [
   getLocationRestaurant,
   removedRestaurant,
   getLocationDetails,
+  editDeliveryServiceArea,
 ]

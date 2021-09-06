@@ -310,6 +310,11 @@ let STATUS_MSG = {
             customMessage : 'Invalid banner code Id',
             type : 'INVALID_BANNER_ID'
         },
+        INVALID_RESTAURANT_SERVICE_AREA_ID: {
+            statusCode:400,
+            customMessage : 'Invalid restaurant service area Id',
+            type : 'INVALID_RESTAURANT_SERVICE_AREA_ID'
+        },
         INVALID_MENU_ID: {
             statusCode:400,
             customMessage : 'Invalid Menu Id',
