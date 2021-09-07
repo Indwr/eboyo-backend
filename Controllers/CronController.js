@@ -34,7 +34,7 @@ const CronJob = require('cron').CronJob;
 //     await getAllOrderAndUpdate({},{});
 //     cronJob.start();
 //   },null, true, "America/Los_Angeles");
-//cronJob.start();
+// cronJob.start();
 
 
 let getAllOrderAndUpdate = async (payloadData,UserData)=> {

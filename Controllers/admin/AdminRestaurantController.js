@@ -309,6 +309,32 @@ let updateStatus = async (payloadData, UserData) => {
   }
 }
  
+let isSponsored = async (payloadData, UserData) => {
+  try {
+    let criteria = { _id: payloadData._id };
+    let checkRestaurant = payloadData.userType == APP_CONSTANTS.USER_ROLES.RESTAURANT
+    let queryData;
+    let dataToSet = {};
+    if(checkRestaurant){
+      queryData = await Service.RestaurantService.getData(criteria,{},{ lean: true });
+      dataToSet = {
+        isSponsored: payloadData.status,
+        updatedAt: new Date(),
+      };
+    }else{
+      throw STATUS_MSG.ERROR.NOT_FOUND;
+    }
+
+    if (queryData.length == 0) {
+      throw STATUS_MSG.ERROR.NOT_FOUND;
+    }
+    Service.RestaurantService.updateData(criteria,dataToSet,{ new: true });
+    return { };
+  } catch (err) {
+    throw err;
+  }
+}
+
  module.exports = {
   create: create,
   getAll: getAll,
@@ -316,5 +342,6 @@ let updateStatus = async (payloadData, UserData) => {
   restaurantDetail:restaurantDetail,
   updatelogo:updatelogo,
   updateStatus:updateStatus,
+  isSponsored:isSponsored,
  };
  

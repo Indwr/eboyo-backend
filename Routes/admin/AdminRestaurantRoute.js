@@ -296,6 +296,41 @@ let updateStatus = {
   },
 };
 
+let isSponsored = {
+  method: "POST",
+  path: basePath+"/isSponsored",
+  handler: function (request, reply) {
+    let UserData = request.pre.verify || {};
+    return Controller.AdminRestaurantController.isSponsored(request.payload,UserData
+    ).then((response) => {
+        return UniversalFunctions.successResponse(null, response);
+    }).catch((error) => {
+        return UniversalFunctions.sendError(error);
+    });
+  },
+  config: {
+    description: "Update restaurant isSponsored or not",
+    tags: ["api", "Admin Restaurant"],
+    pre: [{ method: checkAccessToken, assign: "verify" }],
+    validate: {
+      payload: Joi.object({
+        _id: Joi.string().trim().required(),
+        status: Joi.boolean().required(),
+      }),
+      headers: Joi.object({
+        authorization: Joi.string().trim().required(),
+      }).options({ allowUnknown: true }),
+      failAction: UniversalFunctions.failActionFunction,
+    },
+    plugins: {
+      "hapi-swagger": {
+        payloadType: "form",
+        responseMessages: APP_CONSTANTS.swaggerDefaultResponseMessages,
+      },
+    },
+  },
+};
+
 
 module.exports = [
   createRestaurant,
@@ -304,4 +339,5 @@ module.exports = [
   editRestaurant,
   updatelogo,
   updateStatus,
+  isSponsored,
 ];

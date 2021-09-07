@@ -49,7 +49,7 @@ const Restaurant = new Schema({
   isOnline: {type: Boolean, default: false},
   isPickup: {type: Boolean, default: false},
   isDelivery: {type: Boolean, default: false},
-  
+  isSponsored: {type: Boolean, default: false},
   averageProcessingTime:{type: Number, default: 0},
 
   deviceType: {
