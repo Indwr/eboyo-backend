@@ -15,15 +15,18 @@ const PAYMENT_TYPES   = APP_CONSTANTS.PAYMENT_TYPES;
 
 
 const TransactionTableSchema = new Schema({
-  customerId: {type: Schema.ObjectId, ref: 'driver'},
+  customerId: {type: Schema.ObjectId, ref: 'customer'},
   driverId: {type: Schema.ObjectId, ref: 'driver'},
   orderId      :  {type: Schema.ObjectId, ref: 'orderTables'},
-  restaurantId :  {type: Schema.ObjectId, ref: 'orderTables'},
+  restaurantId :  {type: Schema.ObjectId, ref: 'restaurant'},
   transactionMethod: {type: String,trim: true},
   status: {type: String, default: false},
   transactionType         :  {
     type: String, enum: [
-      TRANSACTION_TYPES.DRIVER_ADD_MONEY_TO_RAZORPAY,    
+      TRANSACTION_TYPES.DRIVER_ADD_MONEY_TO_RAZORPAY,
+      TRANSACTION_TYPES.ADMIN_ADD_MONEY_TO_CUSTOMER,
+      TRANSACTION_TYPES.ADMIN_ADD_MONEY_TO_DRIVER, 
+      TRANSACTION_TYPES.ADMIN_ADD_MONEY_TO_RESTAURANT,   
       TRANSACTION_TYPES.ORDER_CREATE_RAZORPAY,   
       TRANSACTION_TYPES.ORDER_TRANSACTION,
       TRANSACTION_TYPES.SUBMIT_WITHDRAW_FROM_DRIVER,
@@ -41,6 +44,7 @@ const TransactionTableSchema = new Schema({
   upiTransactionId:{type: String},
   wallet:{type: String},
   totalAmount:{type:Number,default:0},
+  description: {type:String},
   adminCommission:{type:Number,default:0},
   driverCommission:{type:Number,default:0},
   restaurantCommission:{type:Number,default:0},

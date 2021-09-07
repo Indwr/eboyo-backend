@@ -19,7 +19,7 @@ module.exports  = {
    AdminPaymentGetewayController   :   require('./admin/AdminPaymentGetewayController'),
    AdminSettingController   :   require('./admin/AdminSettingController'),
    AdminFrontEndSettingController   :   require('./admin/AdminFrontEndSettingController'),
-
+   AdminWalletController   :   require('./admin/AdminWalletController'),
    //AdminController             :   require('./AdminController'),
    
    ChatController              :   require('./ChatController'),

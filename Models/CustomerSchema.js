@@ -17,6 +17,7 @@ const Customer = new Schema({
   email: {type: String,unique : true,trim: true,index: true,sparse: true, lowercase: true},
   password: {type: String,trim: true},
   otpCode: {type: String, trim: true,sparse: true, index: true},
+  walletBalance: {type: Number, trim: true,defalut:0},
   profilePicURL: {
     original: {type: String, default: null},
     thumbnail: {type: String, default: null}

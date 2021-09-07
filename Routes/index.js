@@ -19,6 +19,7 @@ let AdminNotificationRoute   =   require('./admin/AdminNotificationRoute');
 let AdminPaymentGetewayRoute        =   require('./admin/AdminPaymentGetewayRoute');
 let AdminSettingsRoute       =   require('./admin/AdminSettingsRoute');
 let AdminFrontEndSettingsRoute       =   require('./admin/AdminFrontEndSettingsRoute');
+let AdminWalletRoute       =   require('./admin/AdminWalletRoute');
 //let AdminRoute           =   require('./AdminRoute');
 
 
@@ -32,6 +33,6 @@ let RestaurantMenuRoute  =  require('./RestaurantMenuRoute');
 let DriverRoute      =  require('./DriverRoute');
 let RazorpayRoute  =  require('./RazorpayRoute');
 let RazorpayXRoute  = require('./RazorpayXRoute');
-let all = [].concat(AdminUserRoute, AdminRestaurantRoute,AdminBannerRoute,AdminDriverRoute,AdminFaqRoute,AdminMenuRoute,AdminBankDetailRoute,AdminOrderRoute,AdminSubRoute,AdminPolygonRoute,AdminCuisineRoute,AdminPromoCodeRoute,AdminCustomerRoute,AdminNotificationRoute,AdminPaymentGetewayRoute,AdminSettingsRoute,AdminFrontEndSettingsRoute,CronRoute,CommonRoute,CustomerRoute,DriverRoute,RestaurantRoute,RestaurantMenuRoute,RazorpayRoute,RazorpayXRoute);
+let all = [].concat(AdminUserRoute, AdminRestaurantRoute,AdminBannerRoute,AdminDriverRoute,AdminFaqRoute,AdminMenuRoute,AdminBankDetailRoute,AdminOrderRoute,AdminSubRoute,AdminPolygonRoute,AdminCuisineRoute,AdminPromoCodeRoute,AdminCustomerRoute,AdminNotificationRoute,AdminPaymentGetewayRoute,AdminSettingsRoute,AdminFrontEndSettingsRoute,AdminWalletRoute,CronRoute,CommonRoute,CustomerRoute,DriverRoute,RestaurantRoute,RestaurantMenuRoute,RazorpayRoute,RazorpayXRoute);
 
 module.exports = all;
