@@ -480,8 +480,10 @@ payloadData.getNotificationData.forEach(element => {
         },      
         //data:payloadData.userData || {}
       }; 
-      console.log(message)
-      fcmCli.send(message, function(err, response){ });
+      fcmCli.send(message, function(err, response){
+         console.log('Response',response);
+         console.log('err',err);
+       });
   });
   }catch(err){ console.log("err",err);
     throw err;
