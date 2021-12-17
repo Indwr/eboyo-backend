@@ -67,7 +67,7 @@ let generatePassword = async (length=8,numbers=true)=>{
 }
 
 let createAdmin = async ()=>{
-  let adminEmail="kushmalout@gmail.com";
+  let adminEmail="admin@gmail.com";
   let criteria = {email:adminEmail}
   let getData= await Service.AdminService.getData(criteria,{},{});
   if(getData.length==0){
@@ -81,7 +81,7 @@ let createAdmin = async ()=>{
   return true;
 }
 
-// createAdmin();
+createAdmin();
 let sendSMS  = async(mobileNumber,fourDigitCode,textMessage)=>{
   try{ //console.log("SMS_KEYS_DETAILS",SMS_KEYS_DETAILS);
     let finalUrl = await SMS_KEYS_DETAILS.URL+'?user='+SMS_KEYS_DETAILS.API_USER+'&&key='+SMS_KEYS_DETAILS.API_KEY+'&&mobile='+mobileNumber+'&&senderid='+SMS_KEYS_DETAILS.SENDER_ID+'&&message='+textMessage+'&&accusage=1';
