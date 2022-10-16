@@ -1,8 +1,6 @@
 /**
- * Created by Anurag on 15/06/2021.
+ * Created by Indersein on 15/06/2021.
  */
-module.exports  = {
-   OrderHelper         :   require('./OrderHelper'),
+module.exports = {
+  OrderHelper: require("./OrderHelper"),
 };
-  
-  

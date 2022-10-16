@@ -1,36 +1,35 @@
 /**
- * Created by Anurag on 15/04/19.
+ * Created by Indersein on 15/04/19.
  */
- const Path = require("path");
- const _ = require("underscore");
- //const fs = require('fs').promises;
- //const readFilePromise = require('fs-readfile-promise');
- const Mongoose = require("mongoose");
- 
- const Service = require("../../Services");
- const Models = require("../../Models");
- const Config = require("../../Config");
- const UniversalFunctions = require("../../Utils/UniversalFunctions");
- 
- const APP_CONSTANTS = Config.APP_CONSTANTS;
- const DEVICE_TYPES = APP_CONSTANTS.DEVICE_TYPES;
- const STATUS_MSG = APP_CONSTANTS.STATUS_MSG;
- const SOCIAL_MODE_TYPE = APP_CONSTANTS.SOCIAL_MODE_TYPE;
- const DOCUMENT_FILE_SIZE = APP_CONSTANTS.DOCUMENT_FILE_SIZE;
- const DEFAULT_RESTAURANT_WORKING_TIME=APP_CONSTANTS.DEFAULT_RESTAURANT_WORKING_TIME;
+const Path = require("path");
+const _ = require("underscore");
+//const fs = require('fs').promises;
+//const readFilePromise = require('fs-readfile-promise');
+const Mongoose = require("mongoose");
 
- 
- 
- let create = async (payloadData,UserData) => {
+const Service = require("../../Services");
+const Models = require("../../Models");
+const Config = require("../../Config");
+const UniversalFunctions = require("../../Utils/UniversalFunctions");
+
+const APP_CONSTANTS = Config.APP_CONSTANTS;
+const DEVICE_TYPES = APP_CONSTANTS.DEVICE_TYPES;
+const STATUS_MSG = APP_CONSTANTS.STATUS_MSG;
+const SOCIAL_MODE_TYPE = APP_CONSTANTS.SOCIAL_MODE_TYPE;
+const DOCUMENT_FILE_SIZE = APP_CONSTANTS.DOCUMENT_FILE_SIZE;
+const DEFAULT_RESTAURANT_WORKING_TIME =
+  APP_CONSTANTS.DEFAULT_RESTAURANT_WORKING_TIME;
+
+let create = async (payloadData, UserData) => {
   try {
     let createFaq = await Service.FaqService.InsertData(payloadData);
     return { faq: createFaq };
   } catch (err) {
     throw err;
   }
-}
+};
 
-let edit = async (payloadData,userData) => {
+let edit = async (payloadData, userData) => {
   let criteria = {
     _id: payloadData.faqId,
   };
@@ -45,13 +44,13 @@ let edit = async (payloadData,userData) => {
       throw APP_CONSTANTS.STATUS_MSG.ERROR.INVALID_FAQ_ID;
     }
     let updateCriteria = { _id: faqData[0]._id };
-     let dataToSet = {
-        userType:payloadData.userType,
-        isEnabled: payloadData.isEnabled,
-        question: payloadData.question,
-        answer: payloadData.answer,
-        updatedAt: new Date(),
-      };
+    let dataToSet = {
+      userType: payloadData.userType,
+      isEnabled: payloadData.isEnabled,
+      question: payloadData.question,
+      answer: payloadData.answer,
+      updatedAt: new Date(),
+    };
 
     let finalData = await Service.FaqService.updateData(
       updateCriteria,
@@ -62,9 +61,9 @@ let edit = async (payloadData,userData) => {
   } catch (err) {
     throw err;
   }
-}
+};
 
-let deleteFaq = async (payloadData,userData) => {
+let deleteFaq = async (payloadData, userData) => {
   let criteria = {
     _id: payloadData.faqId,
   };
@@ -79,10 +78,10 @@ let deleteFaq = async (payloadData,userData) => {
       throw APP_CONSTANTS.STATUS_MSG.ERROR.INVALID_FAQ_ID;
     }
     let updateCriteria = { _id: faqData[0]._id };
-     let dataToSet = {
-        isDeleted: true,
-        updatedAt: new Date(),
-      };
+    let dataToSet = {
+      isDeleted: true,
+      updatedAt: new Date(),
+    };
 
     let finalData = await Service.FaqService.updateData(
       updateCriteria,
@@ -93,16 +92,10 @@ let deleteFaq = async (payloadData,userData) => {
   } catch (err) {
     throw err;
   }
-}
- 
- 
+};
 
- 
- 
- 
- module.exports = {
+module.exports = {
   create: create,
   edit: edit,
-  deleteFaq:deleteFaq
- };
- 
+  deleteFaq: deleteFaq,
+};

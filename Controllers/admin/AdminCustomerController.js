@@ -1,30 +1,28 @@
 /**
- * Created by Anurag on 15/04/19.
+ * Created by Indersein on 15/04/19.
  */
- const Path = require("path");
- const _ = require("underscore");
- //const fs = require('fs').promises;
- //const readFilePromise = require('fs-readfile-promise');
- const Mongoose = require("mongoose");
+const Path = require("path");
+const _ = require("underscore");
+//const fs = require('fs').promises;
+//const readFilePromise = require('fs-readfile-promise');
+const Mongoose = require("mongoose");
 
- 
- const Service = require("../../Services");
- const Models = require("../../Models");
- const Config = require("../../Config");
- const UniversalFunctions = require("../../Utils/UniversalFunctions");
- 
- const APP_CONSTANTS = Config.APP_CONSTANTS;
- const DEVICE_TYPES = APP_CONSTANTS.DEVICE_TYPES;
- const STATUS_MSG = APP_CONSTANTS.STATUS_MSG;
- const SOCIAL_MODE_TYPE = APP_CONSTANTS.SOCIAL_MODE_TYPE;
- const DOCUMENT_FILE_SIZE = APP_CONSTANTS.DOCUMENT_FILE_SIZE;
- const DEFAULT_RESTAURANT_WORKING_TIME=APP_CONSTANTS.DEFAULT_RESTAURANT_WORKING_TIME;
+const Service = require("../../Services");
+const Models = require("../../Models");
+const Config = require("../../Config");
+const UniversalFunctions = require("../../Utils/UniversalFunctions");
 
- 
- 
- let getlist= async (payloadData, UserData) => {
+const APP_CONSTANTS = Config.APP_CONSTANTS;
+const DEVICE_TYPES = APP_CONSTANTS.DEVICE_TYPES;
+const STATUS_MSG = APP_CONSTANTS.STATUS_MSG;
+const SOCIAL_MODE_TYPE = APP_CONSTANTS.SOCIAL_MODE_TYPE;
+const DOCUMENT_FILE_SIZE = APP_CONSTANTS.DOCUMENT_FILE_SIZE;
+const DEFAULT_RESTAURANT_WORKING_TIME =
+  APP_CONSTANTS.DEFAULT_RESTAURANT_WORKING_TIME;
+
+let getlist = async (payloadData, UserData) => {
   let customerData,
-  totalCustomer = 0;
+    totalCustomer = 0;
   let criteria = {};
   let options = {
     lean: true,
@@ -66,15 +64,14 @@
   } catch (err) {
     throw err;
   }
-}; 
- 
+};
 
-let getOrderlist= async (payloadData, UserData) => {
+let getOrderlist = async (payloadData, UserData) => {
   let isValid = Mongoose.Types.ObjectId.isValid(payloadData.customerId); //true
-   if(isValid === false){
+  if (isValid === false) {
     throw APP_CONSTANTS.STATUS_MSG.ERROR.INVALID_CUSTOMER_ID;
-   }
-  let criteria = {customerId:payloadData.customerId};
+  }
+  let criteria = { customerId: payloadData.customerId };
   let options = {
     lean: true,
     limit: payloadData.limit || 0,
@@ -83,8 +80,8 @@ let getOrderlist= async (payloadData, UserData) => {
 
   try {
     let queryResult = await Promise.all([
-       Service.OrderService.getData(criteria,{},options),
-       Service.OrderService.countData(criteria,{},{})
+      Service.OrderService.getData(criteria, {}, options),
+      Service.OrderService.countData(criteria, {}, {}),
     ]);
     return {
       totalCustomerOrder: queryResult[1],
@@ -93,12 +90,9 @@ let getOrderlist= async (payloadData, UserData) => {
   } catch (err) {
     throw err;
   }
-}; 
- 
- 
- 
- module.exports = {
-  getlist:getlist,
-  getOrderlist:getOrderlist,
- };
- 
+};
+
+module.exports = {
+  getlist: getlist,
+  getOrderlist: getOrderlist,
+};
