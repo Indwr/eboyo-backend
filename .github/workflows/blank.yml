@@ -16,14 +16,14 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:       
     - name: Deploy using ssh
-      uses: inder/ssh-action@master
+      uses: actions/eboyo-backend@main
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          cd /var/www/youtube.com/
+          cd /var/www/food_delivery_backend/
           git pull origin main
           git status
           npm install
