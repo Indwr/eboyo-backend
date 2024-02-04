@@ -6,7 +6,7 @@ const Inert = require("@hapi/inert");
 const Vision = require("@hapi/vision");
 const Pack = require("./package");
 
-//const io = require("socket.io")(3002);
+//const io = require("socket.io")(3004);
 //const SocketManager = require('./Utils/SocketManager');
 
 const Routes = require("./Routes");
