@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <mate charest="utf-8" />
+    <title>Generated PDF</title>
+  </head>
+  <style>
+      table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+/* 
+tr:nth-child(even) {
+  background-color: #dddddd;
+} */
+  </style>
+  <body>
+      <div style="text-align: center;">
+          <img style="height: 136px;" src="{{logo}}">
+      </div>
+      <div style="padding: 35px;">
+    <table>
+        <thead>
+          <tr>
+            {{#each headers}}
+            <th>{{this.headerName}}</th>
+            {{/each}}
+          </tr>
+        </thead>
+        <tbody>
+            {{#each pdfData}}
+          <tr>
+            <td>{{this.serialNo}}</td>
+            <td>{{this.OrderId}}</td>
+            <td>{{this.Restaurant}}</td>
+            <td>{{this.totalPrice}}</td>
+            <td>{{this.pricePaidByCustomer}}</td>
+            <td>{{this.itemTotalPrice}}</td>
+            <td>{{this.restaurantCommission}}</td>
+            <td>{{this.adminCommission}}</td>
+            <td>{{this.driverCommission}}</td>
+            <td>{{this.promoCode}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
