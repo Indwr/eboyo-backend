@@ -15,9 +15,9 @@ jobs:
       - name: Deploy using SSH
         uses: easingthemes/ssh-deploy@v2
         with:
-          server: ${{ secrets.HOST }}
+          host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           local: "." # Path to the local directory or file to deploy
-          remote: "/var/www/food_delivery_backend" # Remote directory where the code will be deployed
+          scripts: "cd /var/www/food_delivery_backend && ls -ltr" # Remote directory where the code will be deployed
