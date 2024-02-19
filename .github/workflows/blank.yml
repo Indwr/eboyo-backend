@@ -15,8 +15,8 @@ jobs:
       - name: Deploy using SSH
         uses: easingthemes/ssh-deploy@v2
         with:
-          server: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
+          server: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           local: "." # Path to the local directory or file to deploy
