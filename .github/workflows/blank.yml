@@ -11,13 +11,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Deploy using SSH
-        uses: easingthemes/ssh-deploy@v2
+     
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           local: "." # Path to the local directory or file to deploy
-          script: "cd /var/www/food_delivery_backend && ls -ltr" # Remote directory where the code will be deployed
+          script: "cd /var/www/food_delivery_backend && git pull" # Remote directory where the code will be deployed
