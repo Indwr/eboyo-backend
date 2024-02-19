@@ -8,7 +8,6 @@ const APP_CONSTANTS = CONFIG.APP_CONSTANTS;
 const USER_ROLES = APP_CONSTANTS.USER_ROLES;
 
 const DRIVER_BONUS_TYPES = APP_CONSTANTS.DRIVER_BONUS_TYPES
-//console.log("DEVICE_TYPES",APP_CONSTANTS.swaggerDefaultResponseMessages);
 
 const checkAccessToken = TokenManagerAdmin.getTokenFromDBForAdmin;
 
