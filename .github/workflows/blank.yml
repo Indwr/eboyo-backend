@@ -11,10 +11,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy code
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'cd /var/www/eboyo-backend && git pull origin main && pm2 restart 0'
+          ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'cd /var/www/eboyo-backend && git pull origin main'
+
+      - name: Install npm dependencies
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'cd /var/www/eboyo-backend && npm install'
+
+      - name: Restart PM2 process
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'pm2 restart 0'
