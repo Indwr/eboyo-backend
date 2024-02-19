@@ -12,9 +12,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         
-      - name: Install sshpass
-        run: sudo apt-get install -y sshpass  # Adjust for non-Debian-based systems if needed
-        
       - name: Update code on server
         run: |
-          sshpass -p "${{ secrets.SSH_PRIVATE_KEY }}" ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} -p ${{ secrets.PORT }} "cd /var/www/food_delivery_backend && git pull"
+              ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} -p ${{ secrets.PORT }} -i ${{ secrets.SSH_PRIVATE_KEY }} "cd /var/www/food_delivery_backend && git pull"
