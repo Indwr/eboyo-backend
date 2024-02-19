@@ -14,4 +14,4 @@ jobs:
 
       - name: Update code on server
         run: |
-          ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} -p ${{ secrets.PORT }} -i ~/.ssh/id_rsa/${{ secrets.SSH_PRIVATE_KEY }} "cd /var/www/food_delivery_backend && git pull"
+          ssh ${{ secrets.USERNAME }}@${{ secrets.HOST }} -p ${{ secrets.PORT }} -i ${{ secrets.SSH_PRIVATE_KEY }} "cd /var/www/food_delivery_backend && git pull"
