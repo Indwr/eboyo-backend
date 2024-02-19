@@ -15,9 +15,47 @@ jobs:
       - name: Deploy using SSH
         uses: easingthemes/ssh-deploy@v2
         with:
-          server: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          server: 62.72.57.155
+          username: root
+          key: "-----BEGIN OPENSSH PRIVATE KEY-----
+            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
+            -----END OPENSSH PRIVATE KEY-----
+            "
           port: 22
           local: "." # Path to the local directory or file to deploy
           remote: "/var/www/food_delivery_backend" # Remote directory where the code will be deployed
