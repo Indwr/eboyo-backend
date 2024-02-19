@@ -11,11 +11,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-     
+
+      - name: SSH and deploy
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          local: "." # Path to the local directory or file to deploy
-          script: "cd /var/www/food_delivery_backend && git pull" # Remote directory where the code will be deployed
+          script: |
+            cd /var/www/food_delivery_backend
+            git pull
