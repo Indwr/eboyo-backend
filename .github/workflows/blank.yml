@@ -20,7 +20,7 @@ jobs:
 
       - name: Install npm dependencies
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'cd /var/www/eboyo-backend && npm install'
+          ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'cd /var/www/eboyo-backend && /root/.nvm/versions/node/v18.19.0/bin/npm npm install'
 
       - name: Restart PM2 process
         run: |
