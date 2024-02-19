@@ -119,7 +119,7 @@ let generateOrderHtmlAndSendEmail = async (htmlData) => {
     let EmailPayloadData = {
       to: htmlData.customerData.email,
       subject:
-        "Your Eboyo order summary for order no." + htmlData.orderAuoIncrement,
+        "Your bytebots order summary for order no." + htmlData.orderAuoIncrement,
     };
     let templatepath = Path.join(__dirname, "../emailTemplates/");
     let fileReadStream =

@@ -88,7 +88,7 @@ const login = async (payloadData) => {
       .replace("{{time}}", currentTime);
     let sendToDriver = {
       to: payloadData.email,
-      subject: "Welcome To Eboyo",
+      subject: "Welcome To bytebots",
       html: sendStr,
     };
     UniversalFunctions.sendMail(sendToDriver);
@@ -726,7 +726,7 @@ let forgotPassword = async (payloadData, UserData) => {
     let sendStr = emailTemplate.replace("{{path}}", resetPasswordLink);
     let sendToDriver = {
       to: payloadData.email,
-      subject: "Welcome To Eboyo",
+      subject: "Welcome To bytebots",
       html: sendStr,
     };
     UniversalFunctions.sendMail(sendToDriver);

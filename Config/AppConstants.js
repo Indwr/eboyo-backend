@@ -7,12 +7,12 @@
 -----------------------------------------------------------------------------------*/
 
 let APP_DETAILS = {
-  APP_NAME: "Eboyo",
-  LOGO: "https://eboyofood.s3.us-east-2.amazonaws.com/eboyologo.png",
+  APP_NAME: "Bytebots",
+  LOGO: "https://bytebots.s3.us-east-2.amazonaws.com/bytebots.png",
   PDF_FILE_PATH: "./pdfFile/",
   BASE_URL: "http://localhost:3002/",
   FRONT_END_BASE_URL_FOR_RESET_PASSWORD:
-    "https://admin.eboyo.co.in/#/reset_password",
+    "https://admin.bytebots.co.in/#/reset_password",
 };
 
 let EMAIL_TEMPLATES = {
@@ -72,7 +72,7 @@ let S3_BUCKET_CREDENTIALS = {
   bucket: "glimpsters",
   accessKeyId: "AKIAWTJXM4TMH6R57UW2", //"AKIA3OPX7BUORQOVAQ7T",
   secretAccessKey: "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", //"wEgyOH0bYGeov5C0hfcn4EKDi6wkt++6mJlPdCVg",
-  s3URL: "https://glimpsters.s3.amazonaws.com", //"https://eboyo.s3.ap-south-1.amazonaws.com",
+  s3URL: "https://glimpsters.s3.amazonaws.com", //"https://bytebots.s3.ap-south-1.amazonaws.com",
   region: "us-east-1", //"ap-south-1",
   folder: {
     profilePicture: "profilePicture",
@@ -83,8 +83,8 @@ let S3_BUCKET_CREDENTIALS = {
 let LANGUAGE_SPECIFIC_MESSAGE = {
   //languageSpecificMessages
   verificationCodeMsg: {
-    EN: "Your 4 digit verification code for Eboyo is ",
-    ES_MX: "Your 4 digit verification code for Eboyo is ",
+    EN: "Your 4 digit verification code for bytebots is ",
+    ES_MX: "Your 4 digit verification code for bytebots is ",
   },
 };
 

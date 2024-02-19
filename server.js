@@ -28,7 +28,7 @@ const init = async () => {
     //SocketManager.connectSocket(server);
     const swaggerOptions = {
       info: {
-        title: "Eboyo Food API Documentation",
+        title: "Bytebots Food API Documentation",
         version: Pack.version,
       },
       grouping: "tags",

@@ -111,7 +111,7 @@ let create = async (payloadData, UserData) => {
       .replace("{{path}}", "resetPasswordLink");
     let sendToDriver = {
       to: payloadData.email,
-      subject: "Welcome To Eboyo",
+      subject: "Welcome To bytebots",
       html: sendStr,
     };
     UniversalFunctions.sendMail(sendToDriver);
