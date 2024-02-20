@@ -19,7 +19,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'cd /var/www/eboyo-backend && git pull origin main'
 
       - name: Install npm dependencies
-        run: echo 'cd /var/www/eboyo-backend && npm install'
+        run: cd /var/www/eboyo-backend && npm install
 
       - name: Restart PM2 process
-        run: echo 'pm2 restart 0'
+        run: pm2 restart 0
